@@ -36,9 +36,7 @@ jobs:
           git config --local user.name "github-actions"
           git config --local user.email "github-actions@github.com"
           git add dambulla_daily.csv
-          git diff --cached --quiet || git commit -m "Update daily prices"
-          git push
-        env:
-          # Use the GitHub token provided by Actions for authentication
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git commit -m "Update daily prices" || echo "No changes to commit"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/yohan2001colombo/Updater.git HEAD:main
+
 
