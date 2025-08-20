@@ -3,7 +3,7 @@ name: Price Updater
 on:
   schedule:
     - cron: '0 19 * * *'  # runs every day at 19:00 UTC
-  workflow_dispatch:     # allows manual trigger
+  workflow_dispatch:       # allows manual trigger
 
 jobs:
   update_prices:
@@ -33,3 +33,4 @@ jobs:
           git add dambulla_daily.csv
           git commit -m "Update daily prices" || echo "No changes to commit"
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/yohan2001colombo/Updater.git HEAD:main
+
