@@ -95,7 +95,7 @@ while current_date <= end_date:
             for product, price in daily_prices.items():
                 df.at[row_index, product] = price
         else:
-            df = df.append(daily_prices, ignore_index=True)
+            df = pd.concat([df, pd.DataFrame([daily_prices])], ignore_index=True)
         
         print(f"Data for {date_str} processed.")
     else:
