@@ -40,3 +40,11 @@ jobs:
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Send WhatsApp Notification
+        run: |
+          curl -X POST "https://api.twilio.com/2010-04-01/Accounts/${{ secrets.TWILIO_SID }}/Messages.json" \
+          --data-urlencode "From=whatsapp:+14155238886" \
+          --data-urlencode "To=whatsapp:+9477080585" \
+          --data-urlencode "Body=✅ Daily Updater workflow has finished. CSV files have been updated in the repo: ${{ github.repository }} (Run ID: ${{ github.run_id }})" \
+          -u ${{ secrets.TWILIO_SID }}:${{ secrets.TWILIO_AUTH_TOKEN }}
