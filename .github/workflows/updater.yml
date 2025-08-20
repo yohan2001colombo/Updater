@@ -27,10 +27,13 @@ jobs:
         run: python Price_Updater.py
 
       - name: Commit updated CSV
+    
         run: |
           git config --local user.name "github-actions"
           git config --local user.email "github-actions@github.com"
           git add dambulla_daily.csv
           git commit -m "Update daily prices" || echo "No changes to commit"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/yohan2001colombo/Updater.git HEAD:main
+          git push origin HEAD:main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
