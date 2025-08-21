@@ -2,7 +2,7 @@ name: Daily Updater
 
 on:
   schedule:
-    - cron: '20 7 * * *'  # runs every day at 12:20 noon Sri Lanka time
+    - cron: '35 7 * * *'  # runs every day at 12:20 noon Sri Lanka time
   workflow_dispatch:       # allows manual trigger
 
 jobs:
@@ -34,9 +34,16 @@ jobs:
         run: |
           git config --local user.name "yohan2001colombo"
           git config --local user.email "2021s18734@stu.cmb.ac.lk"
+          
+          # Pull latest changes from the remote before pushing
+          git pull origin main --rebase || echo "No changes to pull"
+          
+          # Stage and commit if there are changes
           git add *.csv
           git commit -m "Update daily data" || echo "No changes to commit"
-          git push
+          
+          # Push changes to the remote
+          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
